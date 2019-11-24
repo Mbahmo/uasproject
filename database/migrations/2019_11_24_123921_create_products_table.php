@@ -18,6 +18,7 @@ class CreateProductsTable extends Migration
             $table->string('ProductName', 100);
             $table->smallInteger('ProductStock');
             $table->text('ProductDescription');
+            $table->timestamps();
         });
     }
 
