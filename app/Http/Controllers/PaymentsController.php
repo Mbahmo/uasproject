@@ -17,9 +17,9 @@ class PaymentsController extends Controller
 
     public function index(){
 
-        $payments = Payments::all();
         // dd($payments);
         if (request()->ajax()) {
+            $payments = Payments::all();
             return Datatables::of($payments)
                 ->editColumn('created_at', function ($data) {
                     return $data->created_at->toDayDateTimeString();
@@ -49,18 +49,16 @@ class PaymentsController extends Controller
     {
         $rules = [
             'name' => 'required|min:2|max:32',
-            'contact' => 'required|digits_between:1,12|numeric',
-            'address' => 'required|min:5|max:100'
+            'description' => 'required|min:5|max:100'
         ];
         $validator = Validator::make(Input::all(),$rules);
         if ($validator->fails()) {
             return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
-        }else{
-            $crud = new Crud();
-            $crud->name = $request->name;
-            $crud->contact = $request->contact;
-            $crud->address = $request->address;
-            $crud->save();
+        } else {
+            $payments = new Payments();
+            $payments->PaymentsName = $request->name;
+            $payments->PaymentsDescription = $request->description;
+            $payments->save();
             return response()->json(array("success"=>true));
         }
     }

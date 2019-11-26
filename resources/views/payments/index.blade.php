@@ -9,6 +9,7 @@
 
 <link  href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet">
 <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<meta name="csrf-token" content="{{csrf_token()}}">
 
 @section('content')
 <div class="container">
@@ -44,18 +45,11 @@
                         <p class="errorName text-danger hidden"></p>
                     </div>
                     <div class="form-group">
-                        <label for="contact" class="control-label">
-                        Contact<span class="required">*</span>
+                        <label for="description" class="control-label">
+                        Description<span class="required">*</span>
                         </label>
-                        <input type="text" class="form-control" id="contact" name="contact">
-                        <p class="errorContact text-danger hidden"></p>
-                    </div>
-                    <div class="form-group">
-                        <label for="address" class="control-label">
-                        Address<span class="required">*</span>
-                        </label>
-                        <textarea class="form-control" id="address" name="address"></textarea>
-                        <p class="errorAddress text-danger hidden"></p>
+                        <textarea class="form-control" id="description" name="description"></textarea>
+                        <p class="errordescription text-danger hidden"></p>
                     </div>
                 </form>
                     <div class="modal-footer">
@@ -124,7 +118,7 @@
             }
         });
 
-        $('#laravel_datatable').DataTable({
+        table = $('#laravel_datatable').DataTable({
             processing: true,
             serverSide: true,
             responsive: true,
@@ -148,34 +142,29 @@
 
     //Adding new data
     $('#btnSave').click(function(e){
+        // console.log("test");
         e.preventDefault();
         var frm = $('#frmDataAdd');
         $.ajax({
-            url : 'http://localhost:8000/crud',
+            url : '/payments',
             type : 'POST',
             dataType: 'json',
             data : {
-                'csrf-token': $('input[name=_token]').val(),
+                'csrf-token': '{{csrf_token()}}',
                  name : $('#name').val(),
-                 contact : $('#contact').val(),
-                 address : $('#address').val(),
+                 description : $('#description').val(),
             },
             success:function(data){
                 $('.errorName').addClass('hidden');
-                $('.errorContact').addClass('hidden');
-                $('.errorAddress').addClass('hidden');
+                $('.errorDescription').addClass('hidden');
                 if (data.errors) {
                     if (data.errors.name) {
                         $('.errorName').removeClass('hidden');
                         $('.errorName').text(data.errors.name);
                     }
-                    if (data.errors.contact) {
-                        $('.errorContact').removeClass('hidden');
-                        $('.errorContact').text(data.errors.contact);
-                    }
-                    if (data.errors.address) {
-                        $('.errorAddress').removeClass('hidden');
-                        $('.errorAddress').text(data.errors.address);
+                    if (data.errors.description) {
+                        $('.errorDescription').removeClass('hidden');
+                        $('.errorDescription').text(data.errors.description);
                     }
                 }
                 if (data.success == true) {
@@ -184,7 +173,11 @@
                     table.ajax.reload(null,false);
                     swal('success!','Successfully Added','success');
                 }
+            },
+            error:function(data){
+                console.log(data);
             }
+
         });
     });
 
