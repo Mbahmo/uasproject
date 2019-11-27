@@ -1,6 +1,6 @@
 ## About Project
 
-Aplikasi POS (Point Of Sales) dengan menggunakan framework laravel sebagai pondasi programnya.     Library yang digunakan : 
+Aplikasi POS (Point Of Sales) dengan menggunakan framework laravel sebagai pondasi programnya.      Library yang digunakan : 
 
 - SweetAlert2
 - DomPdf
