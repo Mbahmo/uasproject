@@ -17,8 +17,8 @@ class PaymentsController extends Controller
 
     public function index(){
 
-        // dd($payments);
         if (request()->ajax()) {
+        // dd($payments);
             $payments = Payments::all();
             return Datatables::of($payments)
                 ->editColumn('created_at', function ($data) {
