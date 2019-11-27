@@ -89,16 +89,15 @@ class PaymentsController extends Controller
 
         $rules= [
             'edit_name'    => 'required|min:2|max:32',
-            'edit_contact' => 'required|numeric|digits_between:1,12',
-            'edit_address' => 'required|min:5|max:100'
+            'edit_description' => 'required|min:5|max:100'
         ];
         $message = [
-            'edit_name.required'          => 'The Name field is required.',
-            'edit_name.min'               => 'The Name must be at least 2 characters.',
-            'edit_name.max'               => 'The Name may not be greater than 32 characters.',
-            'edit_description.required'       => 'The Brand Name field is required.',
-            'edit_description.min'            => 'The Brand Name must be at least 5 characters.',
-            'edit_description.max'            => 'The Brand Name may not be greater than 100 characters.',
+            'edit_name.required'              => 'The Name field is required.',
+            'edit_name.min'                   => 'The Name must be at least 2 characters.',
+            'edit_name.max'                   => 'The Name may not be greater than 32 characters.',
+            'edit_description.required'       => 'The Description field is required.',
+            'edit_description.min'            => 'The Description must be at least 5 characters.',
+            'edit_description.max'            => 'The Description may not be greater than 100 characters.',
         ];
         $Validator = Validator::make(Input::all(),$rules,$message);
         if($Validator->fails()) {

@@ -73,7 +73,7 @@
                 </div>
                 <div class="modal-body">
                 <form role="form" id="frmDataEdit">
-                    <div class="form-group">
+                    <div class="form-group" style="display:none;">
                         <label for="edit_ID" class="control-label">
                         ID
                         </label>
@@ -179,17 +179,7 @@
     $('#laravel_datatable').on('click','.btnEdit[data-edit]',function(e){
         e.preventDefault();
         var url = $(this).data('edit');
-        // Swal.fire({
-        //     title: 'Are you sure?',
-        //     text: "You won't be able to revert this!",
-        //     type: 'warning',
-        //     showCancelButton: true,
-        //     confirmButtonColor: '#3085d6',
-        //     cancelButtonColor: '#d33',
-        //     confirmButtonText: 'Yes, delete it!'
 
-        // }).then((result) => {
-        //     if (result.value) {
                     $.ajax({
                         url : url,
                         type : 'GET',
@@ -203,54 +193,59 @@
                             $('#mdlEditData').modal('show');
                         }
                     });
-            // } else {
-            //     swal.fire("Cancelled", "You Cancelled", "error");
-            // }
-        // })
+
     });
 
     // updating data infomation
-    $('#btnEdit').on('click',function(e){
+    $('#btnUpdate').on('click',function(e){
         e.preventDefault();
         var url = "/payments/"+$('#edit_ID').val();
         var frm = $('#frmDataEdit');
-        $.ajax({
-            type :'PUT',
-            url : url,
-            dataType : 'json',
-            data : frm.serialize(),
-            success:function(data){
-                // console.log(data);
-                if (data.errors) {
-                    if (data.errors.edit_name) {
-                        $('.edit_errorName').removeClass('hidden');
-                        $('.edit_errorName').text(data.errors.edit_name);
+         Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, edit it!'
+
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    type :'PUT',
+                    url : url,
+                    dataType : 'json',
+                    data : frm.serialize(),
+                    success:function(data){
+                        if (data.errors) {
+                            if (data.errors.edit_name) {
+                                $('.edit_errorName').removeClass('hidden');
+                                $('.edit_errorName').text(data.errors.edit_name);
+                            }
+                            if (data.errors.edit_description) {
+                                $('.edit_errorDescription').removeClass('hidden');
+                                $('.edit_errorDescription').text(data.errors.edit_description);
+                            }
+                        }
+                        if (data.success == true) {
+                            // console.log(data);
+                            $('.edit_errorName').addClass('hidden');
+                            $('.edit_errorDescription').addClass('hidden');
+                            frm.trigger('reset');
+                            $('#mdlEditData').modal('hide');
+                            swal.fire('Success!','Data Updated Successfully','success');
+                            table.ajax.reload(null,false);
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown){
+                            alert('Please Reload to read Ajax');
                     }
-                    if (data.errors.edit_contact) {
-                        $('.edit_errorContact').removeClass('hidden');
-                        $('.edit_errorContact').text(data.errors.edit_contact);
-                    }
-                    if (data.errors.edit_address) {
-                        $('.edit_errorDescription').removeClass('hidden');
-                        $('.edit_errorDescription').text(data.errors.edit_address);
-                    }
-                }
-                if (data.success == true) {
-                    // console.log(data);
-                    $('.edit_errorName').addClass('hidden');
-                    $('.edit_errorContact').addClass('hidden');
-                    $('.edit_errorDescription').addClass('hidden');
-                    frm.trigger('reset');
-                    $('#mdlEditData').modal('hide');
-                    swal('Success!','Data Updated Successfully','success');
-                    table.ajax.reload(null,false);
-                }
-            },
-            error: function (jqXHR, textStatus, errorThrown)
-                {
-                    alert('Please Reload to read Ajax');
-                }
-        });
+                });
+        } else {
+            swal.fire("Cancelled", "You Cancelled", "error");
+        }
+        })
     });
 
     //deleting data
