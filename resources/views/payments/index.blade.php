@@ -179,32 +179,34 @@
     $('#laravel_datatable').on('click','.btnEdit[data-edit]',function(e){
         e.preventDefault();
         var url = $(this).data('edit');
-        // Swal({
-        //       title: "Are you sure want to Edit this item?",
-        //       type: "info",
-        //       showCancelButton: true,
-        //       confirmButtonClass: "btn-info",
-        //       confirmButtonText: "Confirm",
-        //       cancelButtonText: "Cancel",
-        //     },
-                // function(isConfirm) {
-                // if (isConfirm) {
-                //     $.ajax({
-                //         url : url,
-                //         type : 'GET',
-                //         datatype : 'json',
-                //         success:function(data){
-                //             $('#edit_ID').val(data.id);
-                //             $('#edit_name').val(data.name);
-                //             $('#edit_description').val(data.description);
-                //             $('.edit_errorName').addClass('hidden');
-                //             $('.edit_errorContact').addClass('hidden');
-                //             $('.edit_errorDescription').addClass('hidden');
-                //             $('#mdlEditData').modal('show');
-                //         }
-                //     });
-                // }
-        // });
+        // Swal.fire({
+        //     title: 'Are you sure?',
+        //     text: "You won't be able to revert this!",
+        //     type: 'warning',
+        //     showCancelButton: true,
+        //     confirmButtonColor: '#3085d6',
+        //     cancelButtonColor: '#d33',
+        //     confirmButtonText: 'Yes, delete it!'
+
+        // }).then((result) => {
+        //     if (result.value) {
+                    $.ajax({
+                        url : url,
+                        type : 'GET',
+                        datatype : 'json',
+                        success:function(data){
+                            $('#edit_ID').val(data.PaymentsId);
+                            $('#edit_name').val(data.PaymentsName);
+                            $('#edit_description').val(data.PaymentsDescription);
+                            $('.edit_errorName').addClass('hidden');
+                            $('.edit_errorDescription').addClass('hidden');
+                            $('#mdlEditData').modal('show');
+                        }
+                    });
+            // } else {
+            //     swal.fire("Cancelled", "You Cancelled", "error");
+            // }
+        // })
     });
 
     // updating data infomation
@@ -254,7 +256,6 @@
     //deleting data
     $('#laravel_datatable').on('click','.btnDelete[data-remove]',function(e){
         e.preventDefault();
-        // console.log("NGENTOD");
         var url = $(this).data('remove');
 
         Swal.fire({
@@ -284,22 +285,6 @@
                 swal.fire("Cancelled", "You Cancelled", "error");
             }
         })
-        // swal.fire({
-        //    title: "Are you sure want to remove this item?",
-        //    text: "Data will be Temporary Deleted!",
-        //    type: "warning",
-        //    showCancelButton: true,
-        //    confirmButtonClass: "btn-danger",
-        //    confirmButtonText: "Confirm",
-        //    cancelButtonText: "Cancel"
-        // }, function(isConfirm) {
-        //     if (isConfirm) {
-
-        // } else {
-        // swal.fire("Cancelled", "You Cancelled", "error");
-        // }
-        // swall.closeModal();
-        // });
     });
 });
 </script>
