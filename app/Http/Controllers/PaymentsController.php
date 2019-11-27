@@ -30,8 +30,8 @@ class PaymentsController extends Controller
                 ->addColumn('action',function($payments){
                     return
                     '
-                    <button type="button" class="btn btn-info btn-sm btnEdit" data-edit="/payments/'.$payments->id.'/edit">Edit</button>
-                    <button type="submit" class="btn btn-warning btn-sm btnDelete" data-remove="/payments/'.$payments->id.'">Delete</button>
+                    <button type="button" class="btn btn-info btn-sm btnEdit" data-edit="/payments/'.$payments->PaymentsId.'/edit">Edit</button>
+                    <button type="submit" class="btn btn-warning btn-sm btnDelete" data-remove="/payments/'.$payments->PaymentsId.'">Delete</button>
                     ';
                 })
                 ->make(true);
@@ -71,7 +71,9 @@ class PaymentsController extends Controller
      */
     public function edit($id)
     {
-        $data = Crud::find($id);
+
+        // dd(Payments::find($id)->toSql());
+        $data = Payments::find($id);
         return response()->json($data);
     }
 
@@ -94,22 +96,18 @@ class PaymentsController extends Controller
             'edit_name.required'          => 'The Name field is required.',
             'edit_name.min'               => 'The Name must be at least 2 characters.',
             'edit_name.max'               => 'The Name may not be greater than 32 characters.',
-            'edit_contact.required'       => 'The contact field is required.',
-            'edit_contact.digits_between' => 'The contact must be between 1 and 12 digits.',
-            'edit_contact.numeric'        => 'The contact must be number.',
-            'edit_address.required'       => 'The Brand Name field is required.',
-            'edit_address.min'            => 'The Brand Name must be at least 5 characters.',
-            'edit_address.max'            => 'The Brand Name may not be greater than 100 characters.',
+            'edit_description.required'       => 'The Brand Name field is required.',
+            'edit_description.min'            => 'The Brand Name must be at least 5 characters.',
+            'edit_description.max'            => 'The Brand Name may not be greater than 100 characters.',
         ];
         $Validator = Validator::make(Input::all(),$rules,$message);
         if($Validator->fails()) {
             return response()->json(array('errors' => $Validator->getMessageBag()->toArray()));
         } else {
-            $crud = Crud::find($id);
-            $crud->name = $request->edit_name;
-            $crud->contact = $request->edit_contact;
-            $crud->address = $request->edit_address;
-            $crud->save();
+            $payments = Payments::find($id);
+            $payments->PaymentsName        = $request->edit_name;
+            $payments->PaymentsDescription = $request->edit_description;
+            $payments->save();
             return response()->json(array("success"=>true));
         }
     }
@@ -122,11 +120,12 @@ class PaymentsController extends Controller
      */
     public function destroy($id)
     {
-        if (Crud::destroy($id)) {
+        // dd(Payments::destroy($id)->toSql());
+        if (Payments::destroy($id)) {
             $data = 'Success';
-         }else{
-             $data = 'Failed';
-         }
+        } else {
+            $data = 'Failed';
+        }
          return response()->json($data);
     }
 }

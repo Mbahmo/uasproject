@@ -9,4 +9,5 @@ class Payments extends Model
     protected $fillable = [
         'PaymentsName', 'ProductDescription',
     ];
+    protected $primaryKey = 'PaymentsId';
 }

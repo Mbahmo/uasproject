@@ -9,6 +9,7 @@
 
 <link  href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet">
 <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+
 <meta name="csrf-token" content="{{csrf_token()}}">
 
 @section('content')
@@ -49,7 +50,7 @@
                         Description<span class="required">*</span>
                         </label>
                         <textarea class="form-control" id="description" name="description"></textarea>
-                        <p class="errordescription text-danger hidden"></p>
+                        <p class="errorDescription text-danger hidden"></p>
                     </div>
                 </form>
                     <div class="modal-footer">
@@ -86,18 +87,11 @@
                         <p class="edit_errorName text-danger hidden"></p>
                     </div>
                     <div class="form-group">
-                        <label for="edit_contact" class="control-label">
-                        Contact<span class="required">*</span>
-                        </label>
-                        <input type="text" class="form-control" id="edit_contact" name="edit_contact">
-                        <p class="edit_errorContact text-danger hidden"></p>
-                    </div>
-                    <div class="form-group">
-                        <label for="edit_address" class="control-label">
+                        <label for="edit_description" class="control-label">
                         Address<span class="required">*</span>
                         </label>
-                        <textarea class="form-control" id="edit_address" name="edit_address"></textarea>
-                        <p class="edit_errorAddress text-danger hidden"></p>
+                        <textarea class="form-control" id="edit_description" name="edit_description"></textarea>
+                        <p class="edit_errorDescription text-danger hidden"></p>
                     </div>
                 </form>
                     <div class="modal-footer">
@@ -171,7 +165,7 @@
                     $('#mdlAddData').modal('hide');
                     frm.trigger('reset');
                     table.ajax.reload(null,false);
-                    swal('success!','Successfully Added','success');
+                    Swal.fire('success!','Successfully Added','success');
                 }
             },
             error:function(data){
@@ -182,45 +176,41 @@
     });
 
     //calling edit modal and id info of data
-    $('#tblData').on('click','.btnEdit[data-edit]',function(e){
+    $('#laravel_datatable').on('click','.btnEdit[data-edit]',function(e){
         e.preventDefault();
         var url = $(this).data('edit');
-        swal({
-              title: "Are you sure want to Edit this item?",
-              type: "info",
-              showCancelButton: true,
-              confirmButtonClass: "btn-info",
-              confirmButtonText: "Confirm",
-              cancelButtonText: "Cancel",
-              closeOnConfirm: true,
-              closeOnCancel: true
-            },
-                function(isConfirm) {
-                if (isConfirm) {
-                    $.ajax({
-                        url : url,
-                        type : 'GET',
-                        datatype : 'json',
-                        success:function(data){
-                            $('#edit_ID').val(data.id);
-                            $('#edit_name').val(data.name);
-                            $('#edit_contact').val(data.contact);
-                            $('#edit_address').val(data.address);
-                            $('.edit_errorName').addClass('hidden');
-                            $('.edit_errorContact').addClass('hidden');
-                            $('.edit_errorAddress').addClass('hidden');
-                            $('#mdlEditData').modal('show');
-                            $('#mdlEditData').modal('show');
-                        }
-                    });
-                }
-        });
+        // Swal({
+        //       title: "Are you sure want to Edit this item?",
+        //       type: "info",
+        //       showCancelButton: true,
+        //       confirmButtonClass: "btn-info",
+        //       confirmButtonText: "Confirm",
+        //       cancelButtonText: "Cancel",
+        //     },
+                // function(isConfirm) {
+                // if (isConfirm) {
+                //     $.ajax({
+                //         url : url,
+                //         type : 'GET',
+                //         datatype : 'json',
+                //         success:function(data){
+                //             $('#edit_ID').val(data.id);
+                //             $('#edit_name').val(data.name);
+                //             $('#edit_description').val(data.description);
+                //             $('.edit_errorName').addClass('hidden');
+                //             $('.edit_errorContact').addClass('hidden');
+                //             $('.edit_errorDescription').addClass('hidden');
+                //             $('#mdlEditData').modal('show');
+                //         }
+                //     });
+                // }
+        // });
     });
 
     // updating data infomation
-    $('#btnUpdate').on('click',function(e){
+    $('#btnEdit').on('click',function(e){
         e.preventDefault();
-        var url = "http://localhost:8000/crud/"+$('#edit_ID').val();
+        var url = "/payments/"+$('#edit_ID').val();
         var frm = $('#frmDataEdit');
         $.ajax({
             type :'PUT',
@@ -239,15 +229,15 @@
                         $('.edit_errorContact').text(data.errors.edit_contact);
                     }
                     if (data.errors.edit_address) {
-                        $('.edit_errorAddress').removeClass('hidden');
-                        $('.edit_errorAddress').text(data.errors.edit_address);
+                        $('.edit_errorDescription').removeClass('hidden');
+                        $('.edit_errorDescription').text(data.errors.edit_address);
                     }
                 }
                 if (data.success == true) {
                     // console.log(data);
                     $('.edit_errorName').addClass('hidden');
                     $('.edit_errorContact').addClass('hidden');
-                    $('.edit_errorAddress').addClass('hidden');
+                    $('.edit_errorDescription').addClass('hidden');
                     frm.trigger('reset');
                     $('#mdlEditData').modal('hide');
                     swal('Success!','Data Updated Successfully','success');
@@ -262,38 +252,54 @@
     });
 
     //deleting data
-    $('#tblData').on('click','.btnDelete[data-remove]',function(e){
+    $('#laravel_datatable').on('click','.btnDelete[data-remove]',function(e){
         e.preventDefault();
+        // console.log("NGENTOD");
         var url = $(this).data('remove');
-        swal({
-           title: "Are you sure want to remove this item?",
-           text: "Data will be Temporary Deleted!",
-           type: "warning",
-           showCancelButton: true,
-           confirmButtonClass: "btn-danger",
-           confirmButtonText: "Confirm",
-           cancelButtonText: "Cancel",
-           closeOnConfirm: false,
-           closeOnCancel: false,
-        },
-        function(isConfirm) {
-            if (isConfirm) {
-            $.ajax({
-                url : url,
-                type: 'DELETE',
-                dataType : 'json',
-                data : { method : '_DELETE' , submit : true},
-                success:function(data){
-                    if (data == 'Success') {
-                        swal("Deleted!", "Category has been deleted", "success");
-                        table.ajax.reload(null,false);
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+
+        }).then((result) => {
+            if (result.value) {
+                    $.ajax({
+                    url : url,
+                    type: 'DELETE',
+                    dataType : 'json',
+                    data : { method : '_DELETE' , submit : true},
+                    success:function(data){
+                        if (data == 'Success') {
+                            swal.fire("Deleted!", "Category has been deleted", "success");
+                            table.ajax.reload(null,false);
+                        }
                     }
-                }
-            });
-        }else{
-        swal("Cancelled", "You Cancelled", "error");
-        }
-        });
+                });
+            } else {
+                swal.fire("Cancelled", "You Cancelled", "error");
+            }
+        })
+        // swal.fire({
+        //    title: "Are you sure want to remove this item?",
+        //    text: "Data will be Temporary Deleted!",
+        //    type: "warning",
+        //    showCancelButton: true,
+        //    confirmButtonClass: "btn-danger",
+        //    confirmButtonText: "Confirm",
+        //    cancelButtonText: "Cancel"
+        // }, function(isConfirm) {
+        //     if (isConfirm) {
+
+        // } else {
+        // swal.fire("Cancelled", "You Cancelled", "error");
+        // }
+        // swall.closeModal();
+        // });
     });
 });
 </script>
