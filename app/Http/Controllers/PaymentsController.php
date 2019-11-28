@@ -22,6 +22,7 @@ class PaymentsController extends Controller
 
         if (request()->ajax()) {
         // dd($payments);
+            $i = 0;
             $payments = Payments::all();
             return Datatables::of($payments)
                 ->editColumn('created_at', function ($data) {
@@ -36,8 +37,7 @@ class PaymentsController extends Controller
                     <button type="button" class="btn btn-info btn-sm btnEdit" data-edit="/payments/'.$payments->PaymentsId.'/edit">Edit</button>
                     <button type="submit" class="btn btn-warning btn-sm btnDelete" data-remove="/payments/'.$payments->PaymentsId.'">Delete</button>
                     ';
-                })
-                ->make(true);
+                })->make(true);
         }
         return view('pages/payments');
     }

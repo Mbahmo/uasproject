@@ -11,7 +11,6 @@
         {{csrf_field()}}
         <thead>
             <tr>
-                <th>No</th>
                 <th>Name</th>
                 <th>Description</th>
                 <th>Action</th>
@@ -108,10 +107,7 @@
             serverSide: true,
             responsive: true,
             ajax: "{{route('payments.index')}}",
-            columns: [{
-                    data: 'PaymentsId',
-                    name: 'PaymentsId'
-                },
+            columns: [
                 {
                     data: 'PaymentsName',
                     name: 'PaymentsName'
