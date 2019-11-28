@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\PaymentsExport;
 use App\Payments;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 use Validator;
+
 class PaymentsController extends Controller
 {
     /**
@@ -36,7 +39,7 @@ class PaymentsController extends Controller
                 })
                 ->make(true);
         }
-        return view('payments/index');
+        return view('pages/payments');
     }
 
     /**
@@ -126,5 +129,8 @@ class PaymentsController extends Controller
             $data = 'Failed';
         }
          return response()->json($data);
+    }
+    public function print(){
+        return Excel::download(new PaymentsExport, 'payments.xlsx');
     }
 }

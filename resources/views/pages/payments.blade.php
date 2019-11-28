@@ -1,17 +1,10 @@
 @extends('adminlte::page')
 @section('title', 'AdminLTE')
-
-<!-- jQuery library -->
-<script src="{{ mix('js/app.js') }}"></script>
-
-<!-- Latest compiled JavaScript -->
-
-<meta name="csrf-token" content="{{csrf_token()}}">
-
 @section('content')
 <div class="container">
     <h2>Laravel DataTable - Tuts Make</h2>
     <button type="button" class="btn btn-primary" id="btnAdd">Add New</button>
+    <a type="button" class="btn btn-primary" href="{{route('payments.print')}}" target="_blank">Print</a>
     <table class="table table-bordered" id="laravel_datatable">
         {{csrf_field()}}
         <thead>
