@@ -7,7 +7,9 @@
 @yield('title', config('adminlte.title', 'AdminLTE 2'))
 @yield('title_postfix', config('adminlte.title_postfix', ''))</title>
     <meta name="csrf-token" content="{{csrf_token()}}">
-    <script src="{{ mix('js/app.js') }}"></script>
+
+    <script src="{{ mix('js/app.js')}}"></script>
+
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.7 -->
@@ -25,6 +27,9 @@
 
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('vendor/adminlte/dist/css/AdminLTE.min.css') }}">
+
+    {{-- CUSTOM CSS --}}
+    <link rel="stylesheet" href="{{asset('css/custom.css')}}">
 
     @yield('adminlte_css')
 

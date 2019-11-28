@@ -3,14 +3,17 @@
 @section('content')
 <div class="container">
     <h2>Laravel DataTable - Tuts Make</h2>
-    <button type="button" class="btn btn-primary" id="btnAdd">Add New</button>
-    <a type="button" class="btn btn-primary" href="{{route('payments.print')}}" target="_blank">Print</a>
+    <div class="btn-group">
+        <button type="button" class="btn btn-primary" id="btnAdd">Add New</button>
+        <a type="button" class="btn btn-primary" href="{{route('payments.print')}}" target="_blank">Print</a>
+    </div>
     <table class="table table-bordered" id="laravel_datatable">
         {{csrf_field()}}
         <thead>
             <tr>
-                <th>Id</th>
+                <th>No</th>
                 <th>Name</th>
+                <th>Description</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -100,7 +103,6 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-
         table = $('#laravel_datatable').DataTable({
             processing: true,
             serverSide: true,
@@ -113,6 +115,10 @@
                 {
                     data: 'PaymentsName',
                     name: 'PaymentsName'
+                },
+                {
+                    data: 'PaymentsDescription',
+                    name: 'PaymentsDescription'
                 },
                 {data: 'action' , name : 'action', orderable : false ,searchable: false},
             ]

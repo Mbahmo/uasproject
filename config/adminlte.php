@@ -30,9 +30,9 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
+    'logo' => '<b>Point</b> Of <b>Sales</b>',
 
-    'logo_mini' => '<b>A</b>LT',
+    'logo_mini' => '<b>POS</b>',
 
     /*
     |--------------------------------------------------------------------------
@@ -45,7 +45,7 @@ return [
     |
     */
 
-    'skin' => 'blue',
+    'skin' => 'purple-light',
 
     /*
     |--------------------------------------------------------------------------
@@ -58,7 +58,7 @@ return [
     |
     */
 
-    'layout' => null,
+    'layout' => 'top-nav',
 
     /*
     |--------------------------------------------------------------------------
@@ -128,23 +128,28 @@ return [
     */
 
     'menu' => [
-
-        // [
-        //     'text' => 'search',
-        //     'search' => true,
-        // ],
-
-        ['header' => 'main_navigation'],
+        ['header' => 'Main Menu'],
         [
             'text' => 'blog',
             'url'  => 'admin/blog',
             'can'  => 'manage-blog',
         ],
         [
-            'text'        => 'payments',
+            'text'        => 'Payments',
             'url'         => '/payments',
             'icon'        => 'fa fa-money-bill',
-            // 'label'       => 4,
+            'label_color' => 'success',
+        ],
+        [
+            'text'        => 'Products',
+            'url'         => '/products',
+            'icon'        => 'fa fa-warehouse',
+            'label_color' => 'success',
+        ],
+        [
+            'text'        => 'Orders',
+            'url'         => '/orders',
+            'icon'        => 'fa fa-shopping-cart',
             'label_color' => 'success',
         ],
 

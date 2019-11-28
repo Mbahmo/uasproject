@@ -7,6 +7,7 @@ Aplikasi POS (Point Of Sales) dengan menggunakan framework laravel sebagai ponda
 - DomPdf
 - FactoryFaker
 - Yajra Datatable
+- MaatWebsite Excel
 
 Laravel is accessible, powerful, and provides tools required for large, robust applications.
 

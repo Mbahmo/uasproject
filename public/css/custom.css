@@ -1,0 +1,21 @@
+h2{
+    font-family: 'montserrat';
+    font-size: 24px;
+}
+.btn-group *{
+    margin: 5px 10px;
+}
+.dataTables_wrapper{
+    padding: 5px;
+}
+table.dataTable{
+    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+}
+table.dataTable.no-footer{
+    border: initial;
+}
+table.dataTable tr td,
+table.dataTable tr th{
+    text-align: center;
+}
