@@ -96,12 +96,6 @@
     <!-- end editmodal-->
 <script>
     $(document).ready(function(){
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
         table = $('#laravel_datatable').DataTable({
             processing: true,
             serverSide: true,
@@ -120,157 +114,36 @@
             ]
         });
 
-    //calling add modal
+    //Calling Add Modal
     $('#btnAdd').click(function(e){
-        $('#mdlAddData').modal();
+        add_payments();
     });
 
-    //Adding new data
+    //Save New Data
     $('#btnSave').click(function(e){
-        // console.log("test");
-        e.preventDefault();
-        var frm = $('#frmDataAdd');
-        $.ajax({
-            url : '/payments',
-            type : 'POST',
-            dataType: 'json',
-            data : {
-                'csrf-token': '{{csrf_token()}}',
-                 name : $('#name').val(),
-                 description : $('#description').val(),
-            },
-            success:function(data){
-                $('.errorName').addClass('hidden');
-                $('.errorDescription').addClass('hidden');
-                if (data.errors) {
-                    if (data.errors.name) {
-                        $('.errorName').removeClass('hidden');
-                        $('.errorName').text(data.errors.name);
-                    }
-                    if (data.errors.description) {
-                        $('.errorDescription').removeClass('hidden');
-                        $('.errorDescription').text(data.errors.description);
-                    }
-                }
-                if (data.success == true) {
-                    $('#mdlAddData').modal('hide');
-                    frm.trigger('reset');
-                    table.ajax.reload(null,false);
-                    Swal.fire('success!','Successfully Added','success');
-                }
-            },
-            error:function(data){
-                console.log(data);
-            }
-
-        });
+       save_payments();
     });
 
-    //calling edit modal and id info of data
+    // Calling Edit Modal Data
     $('#laravel_datatable').on('click','.btnEdit[data-edit]',function(e){
         e.preventDefault();
         var url = $(this).data('edit');
-
-                    $.ajax({
-                        url : url,
-                        type : 'GET',
-                        datatype : 'json',
-                        success:function(data){
-                            $('#edit_ID').val(data.PaymentsId);
-                            $('#edit_name').val(data.PaymentsName);
-                            $('#edit_description').val(data.PaymentsDescription);
-                            $('.edit_errorName').addClass('hidden');
-                            $('.edit_errorDescription').addClass('hidden');
-                            $('#mdlEditData').modal('show');
-                        }
-                    });
-
+        edit_payments(url);
     });
 
-    // updating data infomation
+    // Updating Data Payments
     $('#btnUpdate').on('click',function(e){
         e.preventDefault();
         var url = "/payments/"+$('#edit_ID').val();
         var frm = $('#frmDataEdit');
-         Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            type: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, edit it!'
-
-        }).then((result) => {
-            if (result.value) {
-                $.ajax({
-                    type :'PUT',
-                    url : url,
-                    dataType : 'json',
-                    data : frm.serialize(),
-                    success:function(data){
-                        if (data.errors) {
-                            if (data.errors.edit_name) {
-                                $('.edit_errorName').removeClass('hidden');
-                                $('.edit_errorName').text(data.errors.edit_name);
-                            }
-                            if (data.errors.edit_description) {
-                                $('.edit_errorDescription').removeClass('hidden');
-                                $('.edit_errorDescription').text(data.errors.edit_description);
-                            }
-                        }
-                        if (data.success == true) {
-                            // console.log(data);
-                            $('.edit_errorName').addClass('hidden');
-                            $('.edit_errorDescription').addClass('hidden');
-                            frm.trigger('reset');
-                            $('#mdlEditData').modal('hide');
-                            swal.fire('Success!','Data Updated Successfully','success');
-                            table.ajax.reload(null,false);
-                        }
-                    },
-                    error: function (jqXHR, textStatus, errorThrown){
-                            alert('Please Reload to read Ajax');
-                    }
-                });
-        } else {
-            swal.fire("Cancelled", "You Cancelled", "error");
-        }
-        })
+        update_payments(url,frm);
     });
 
     //deleting data
     $('#laravel_datatable').on('click','.btnDelete[data-remove]',function(e){
         e.preventDefault();
         var url = $(this).data('remove');
-
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            type: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-
-        }).then((result) => {
-            if (result.value) {
-                    $.ajax({
-                    url : url,
-                    type: 'DELETE',
-                    dataType : 'json',
-                    data : { method : '_DELETE' , submit : true},
-                    success:function(data){
-                        if (data == 'Success') {
-                            swal.fire("Deleted!", "Category has been deleted", "success");
-                            table.ajax.reload(null,false);
-                        }
-                    }
-                });
-            } else {
-                swal.fire("Cancelled", "You Cancelled", "error");
-            }
-        })
+        delete_payments(url);
     });
 });
 </script>

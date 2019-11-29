@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>@yield('title_prefix', config('adminlte.title_prefix', ''))
-@yield('title', config('adminlte.title', 'AdminLTE 2'))
-@yield('title_postfix', config('adminlte.title_postfix', ''))</title>
+    @yield('title', config('adminlte.title', 'AdminLTE 2'))
+    @yield('title_postfix', config('adminlte.title_postfix', ''))</title>
     <meta name="csrf-token" content="{{csrf_token()}}">
 
     <script src="{{ mix('js/app.js')}}"></script>
@@ -19,9 +19,9 @@
     <!-- Ionicons -->
     <link rel="stylesheet" href="{{ asset('vendor/adminlte/vendor/Ionicons/css/ionicons.min.css') }}">
 
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link  href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet">
-    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    {{-- DATATABLE --}}
+    <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
+    <script src="{{asset('js/jquery.dataTables.min.js')}}"></script>
 
     @include('adminlte::plugins', ['type' => 'css'])
 
@@ -30,6 +30,9 @@
 
     {{-- CUSTOM CSS --}}
     <link rel="stylesheet" href="{{asset('css/custom.css')}}">
+
+    {{-- CUSTOM JS --}}
+    <script src="{{asset('js/custom.js')}}"></script>
 
     @yield('adminlte_css')
 
@@ -49,6 +52,16 @@
 <script src="{{ asset('vendor/adminlte/vendor/jquery/dist/jquery.slimscroll.min.js') }}"></script>
 <script src="{{ asset('vendor/adminlte/vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 
+{{-- META TOKEN --}}
+<script>
+    $(document).ready(function(){
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+    });
+</script>
 @include('adminlte::plugins', ['type' => 'js'])
 
 @yield('adminlte_js')
