@@ -20,8 +20,6 @@ class PaymentsController extends Controller
 
     public function index(){
         if (request()->ajax()) {
-        // dd($payments);
-            $i = 0;
             $payments = Payments::all();
             return Datatables::of($payments)
                 ->editColumn('created_at', function ($data) {
@@ -47,8 +45,7 @@ class PaymentsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request){
         $rules = [
             'name' => 'required|min:2|max:32',
             'description' => 'required|min:5|max:100'
@@ -73,8 +70,6 @@ class PaymentsController extends Controller
      */
     public function edit($id)
     {
-
-        // dd(Payments::find($id)->toSql());
         $data = Payments::find($id);
         return response()->json($data);
     }
@@ -86,9 +81,7 @@ class PaymentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-
+    public function update(Request $request, $id){
         $rules= [
             'edit_name'    => 'required|min:2|max:32',
             'edit_description' => 'required|min:5|max:100'

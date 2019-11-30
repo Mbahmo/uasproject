@@ -32,10 +32,6 @@
                     name: 'PaymentsName'
                 },
                 {
-                    data: 'PaymentsPrice',
-                    name: 'PaymentsPrice'
-                },
-                {
                     data: 'PaymentsDescription',
                     name: 'PaymentsDescription'
                 },

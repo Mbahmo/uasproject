@@ -52,22 +52,22 @@
 
     //Save New Data
     $('#btnSave').click(function(e){
-       save_payments(table);
+       save_products(table);
     });
 
     // Calling Edit Modal Data
     $('#laravel_datatable').on('click','.btnEdit[data-edit]',function(e){
         e.preventDefault();
         var url = $(this).data('edit');
-        edit_payments(url);
+        edit_products(url);
     });
 
     // Updating Data Payments
     $('#btnUpdate').on('click',function(e){
         e.preventDefault();
-        var url = "/payments/"+$('#edit_ID').val();
+        var url = "/products/"+$('#edit_ID').val();
         var frm = $('#frmDataEdit');
-        update_payments(url, frm, table);
+        update_products(url, frm, table);
     });
 
     //Deleting Data

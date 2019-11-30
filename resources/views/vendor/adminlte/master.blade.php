@@ -27,6 +27,10 @@
     {{-- CUSTOM CSS --}}
     <link rel="stylesheet" href="{{asset('css/custom.css')}}">
 
+    {{-- DATATABLE --}}
+    <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
+    <script src="{{asset('js/jquery.dataTables.min.js')}}"></script>
+
     {{-- CUSTOM JS --}}
     <script src="{{asset('js/custom.js')}}"></script>
 
@@ -48,9 +52,6 @@
 <script src="{{ asset('vendor/adminlte/vendor/jquery/dist/jquery.slimscroll.min.js') }}"></script>
 <script src="{{ asset('vendor/adminlte/vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 
-{{-- DATATABLE --}}
-<link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
-<script src="{{asset('js/jquery.dataTables.min.js')}}"></script>
 
 {{-- META TOKEN --}}
 <script>

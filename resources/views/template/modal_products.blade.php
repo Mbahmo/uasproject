@@ -64,8 +64,15 @@
                     <p class="edit_errorName text-danger hidden"></p>
                 </div>
                 <div class="form-group">
+                    <label for="price" class="control-label">
+                    Price<span class="required">*</span>
+                    </label>
+                    <input type="number" class="form-control" id="edit_price" name="edit_price">
+                    <p class="errorPrice text-danger hidden"></p>
+                </div>
+                <div class="form-group">
                     <label for="edit_description" class="control-label">
-                    Address<span class="required">*</span>
+                    Description<span class="required">*</span>
                     </label>
                     <textarea class="form-control" id="edit_description" name="edit_description"></textarea>
                     <p class="edit_errorDescription text-danger hidden"></p>
