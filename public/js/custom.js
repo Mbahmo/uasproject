@@ -1,7 +1,9 @@
-function add_payments(){
+// CALLING ADD MODAL JUGAAN SAMA SEMUA NYA
+function add_modal(){
     $('#mdlAddData').modal();
 }
 
+// CRUD Payments
 function save_payments(table){
     var frm = $('#frmDataAdd');
     $.ajax({
@@ -39,7 +41,6 @@ function save_payments(table){
 
     });
 }
-
 function edit_payments(url) {
                 $.ajax({
                     url : url,
@@ -101,7 +102,6 @@ function update_payments(url, frm, table){
     }
     });
 }
-
 function delete_payments(url, table) {
     Swal.fire({
         title: 'Are you sure?',
@@ -131,3 +131,4 @@ function delete_payments(url, table) {
         }
     });
 }
+// CRUD PAYMENTS ENDS HERE

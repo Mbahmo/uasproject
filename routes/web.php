@@ -22,6 +22,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 // PRINT
 Route::get('/payments/print', 'PaymentsController@print')->name('payments.print');
+Route::get('/products/print', 'ProductsController@print')->name('products.print');
 
 Route::resources([
     'products' => 'ProductsController',

@@ -32,6 +32,10 @@
                     name: 'PaymentsName'
                 },
                 {
+                    data: 'PaymentsPrice',
+                    name: 'PaymentsPrice'
+                },
+                {
                     data: 'PaymentsDescription',
                     name: 'PaymentsDescription'
                 },
@@ -41,7 +45,7 @@
 
     //Calling Add Modal
     $('#btnAdd').click(function(e){
-        add_payments();
+        add_modal();
     });
 
     //Save New Data

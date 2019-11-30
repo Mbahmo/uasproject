@@ -5,35 +5,41 @@
     <h2>Products</h2>
     <div class="btn-group">
         <button type="button" class="btn btn-primary" id="btnAdd">Add New</button>
-        <a type="button" class="btn btn-primary" href="{{route('payments.print')}}" target="_blank">Print</a>
+        <a type="button" class="btn btn-primary" href="{{route('products.print')}}" target="_blank">Print</a>
     </div>
     <table class="table table-bordered" id="laravel_datatable">
         @csrf
         <thead>
             <tr>
                 <th>Name</th>
+                <th>Price</th>
                 <th>Description</th>
                 <th>Action</th>
             </tr>
         </thead>
     </table>
 </div>
-@include('template/modal_payments')
+@include('template/modal_products')
 <script>
     $(document).ready(function(){
     table = $('#laravel_datatable').DataTable({
             processing: true,
             serverSide: true,
             responsive: true,
-            ajax: "{{route('payments.index')}}",
+            ajax: "{{route('products.index')}}",
             columns: [
                 {
-                    data: 'PaymentsName',
-                    name: 'PaymentsName'
+                    data: 'ProductsName',
+                    name: 'ProductsName'
                 },
                 {
-                    data: 'PaymentsDescription',
-                    name: 'PaymentsDescription'
+                    render: $.fn.dataTable.render.number( '.', '.', 0, 'Rp' ),
+                    data: 'ProductsPrice',
+                    name: 'ProductsPrice'
+                },
+                {
+                    data: 'ProductsDescription',
+                    name: 'ProductsDescription'
                 },
                 {data: 'action' , name : 'action', orderable : false ,searchable: false},
             ]
@@ -41,7 +47,7 @@
 
     //Calling Add Modal
     $('#btnAdd').click(function(e){
-        add_payments();
+        add_modal();
     });
 
     //Save New Data

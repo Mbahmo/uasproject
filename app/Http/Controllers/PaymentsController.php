@@ -119,15 +119,13 @@ class PaymentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        // dd(Payments::destroy($id)->toSql());
+    public function destroy($id){
         if (Payments::destroy($id)) {
             $data = 'Success';
         } else {
             $data = 'Failed';
         }
-         return response()->json($data);
+        return response()->json($data);
     }
     public function print(){
         return Excel::download(new PaymentsExport, 'payments.xlsx');

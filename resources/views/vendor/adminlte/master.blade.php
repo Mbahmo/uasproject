@@ -19,10 +19,6 @@
     <!-- Ionicons -->
     <link rel="stylesheet" href="{{ asset('vendor/adminlte/vendor/Ionicons/css/ionicons.min.css') }}">
 
-    {{-- DATATABLE --}}
-    <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
-    <script src="{{asset('js/jquery.dataTables.min.js')}}"></script>
-
     @include('adminlte::plugins', ['type' => 'css'])
 
     <!-- Theme style -->
@@ -51,6 +47,10 @@
 <script src="{{ asset('vendor/adminlte/vendor/jquery/dist/jquery.min.js') }}"></script>
 <script src="{{ asset('vendor/adminlte/vendor/jquery/dist/jquery.slimscroll.min.js') }}"></script>
 <script src="{{ asset('vendor/adminlte/vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+
+{{-- DATATABLE --}}
+<link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
+<script src="{{asset('js/jquery.dataTables.min.js')}}"></script>
 
 {{-- META TOKEN --}}
 <script>

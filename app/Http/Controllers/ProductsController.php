@@ -101,8 +101,15 @@ class ProductsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
+    public function destroy($id){
+        if (Products::destroy($id)) {
+            $data = 'Success';
+        } else {
+            $data = 'Failed';
+        }
+        return response()->json($data);
+    }
+    public function print(){
+        return Excel::download(new ProductsExport, 'payments.xlsx');
     }
 }
