@@ -196,8 +196,6 @@ function edit_products(url) {
                 });
 }
 function update_products(url, frm, table){
-    // console.log(url);
-    // console.log(frm.serialize());
     Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
@@ -246,33 +244,33 @@ function update_products(url, frm, table){
     }
     });
 }
-// function delete_payments(url, table) {
-//     Swal.fire({
-//         title: 'Are you sure?',
-//         text: "You won't be able to revert this!",
-//         type: 'warning',
-//         showCancelButton: true,
-//         confirmButtonColor: '#3085d6',
-//         cancelButtonColor: '#d33',
-//         confirmButtonText: 'Yes, delete it!'
+function delete_products(url, table) {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
 
-//     }).then((result) => {
-//         if (result.value) {
-//                 $.ajax({
-//                 url : url,
-//                 type: 'DELETE',
-//                 dataType : 'json',
-//                 data : { method : '_DELETE' , submit : true},
-//                 success:function(data){
-//                     if (data == 'Success') {
-//                         swal.fire("Deleted!", "Payments has been deleted", "success");
-//                         table.ajax.reload(null,false);
-//                     }
-//                 }
-//             });
-//         } else {
-//             swal.fire("Cancelled", "You Cancelled", "error");
-//         }
-    // });
-// }
+    }).then((result) => {
+        if (result.value) {
+                $.ajax({
+                url : url,
+                type: 'DELETE',
+                dataType : 'json',
+                data : { method : '_DELETE' , submit : true},
+                success:function(data){
+                    if (data == 'Success') {
+                        swal.fire("Deleted!", "Products has been deleted", "success");
+                        table.ajax.reload(null,false);
+                    }
+                }
+            });
+        } else {
+            swal.fire("Cancelled", "You Cancelled", "error");
+        }
+    });
+}
 // CRUD Products Ends Here

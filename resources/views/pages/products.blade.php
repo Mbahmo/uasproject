@@ -74,7 +74,7 @@
     $('#laravel_datatable').on('click','.btnDelete[data-remove]',function(e){
         e.preventDefault();
         var url = $(this).data('remove');
-        delete_payments(url, table);
+        delete_products(url, table);
     });
 });
 </script>
