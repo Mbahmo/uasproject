@@ -2,7 +2,7 @@ function add_payments(){
     $('#mdlAddData').modal();
 }
 
-function save_payments(){
+function save_payments(table){
     var frm = $('#frmDataAdd');
     $.ajax({
         url : '/payments',
@@ -55,7 +55,7 @@ function edit_payments(url) {
                     }
                 });
 }
-function update_payments(url, frm){
+function update_payments(url, frm, table){
     Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
@@ -102,7 +102,7 @@ function update_payments(url, frm){
     });
 }
 
-function delete_payments(url) {
+function delete_payments(url, table) {
     Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",

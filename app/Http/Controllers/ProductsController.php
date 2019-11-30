@@ -2,7 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\ProductsExport;
+use App\Products;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
+use Validator;
 
 class ProductsController extends Controller
 {
@@ -11,9 +17,27 @@ class ProductsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
+    public function index(){
+        if (request()->ajax()) {
+        // dd($payments);
+            $i = 0;
+            $products = Products::all();
+            return Datatables::of($products)
+                ->editColumn('created_at', function ($data) {
+                    return $data->created_at->toDayDateTimeString();
+                })
+                ->editColumn('updated_at', function ($data) {
+                    return $data->updated_at->toDayDateTimeString();
+                })
+                ->addColumn('action',function($products){
+                    return
+                    '
+                    <button type="button" class="btn btn-info btn-sm btnEdit" data-edit="/products/'.$products->ProductsId.'/edit">Edit</button>
+                    <button type="submit" class="btn btn-warning btn-sm btnDelete" data-remove="/products/'.$products->ProductsId.'">Delete</button>
+                    ';
+                })->make(true);
+        }
+        return view('pages/products');
     }
 
     /**

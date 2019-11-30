@@ -19,7 +19,6 @@ class PaymentsController extends Controller
      */
 
     public function index(){
-
         if (request()->ajax()) {
         // dd($payments);
             $i = 0;

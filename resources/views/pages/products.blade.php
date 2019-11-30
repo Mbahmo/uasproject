@@ -2,7 +2,7 @@
 @section('title', 'AdminLTE')
 @section('content')
 <div class="container">
-    <h2>Payments</h2>
+    <h2>Products</h2>
     <div class="btn-group">
         <button type="button" class="btn btn-primary" id="btnAdd">Add New</button>
         <a type="button" class="btn btn-primary" href="{{route('payments.print')}}" target="_blank">Print</a>
