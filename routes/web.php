@@ -24,6 +24,7 @@ Route::post('/home', 'HomeController@upload')->name('upload');
 // PRINT
 Route::get('/payments/print', 'PaymentsController@print')->name('payments.print');
 Route::get('/products/print', 'ProductsController@print')->name('products.print');
+Route::get('/orders/print', 'OrdersController@print')->name('orders.print');
 
 Route::resources([
     'products' => 'ProductsController',

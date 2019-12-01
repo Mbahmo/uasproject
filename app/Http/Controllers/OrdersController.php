@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Orders;
 use Illuminate\Http\Request;
 
 class OrdersController extends Controller
@@ -11,9 +12,19 @@ class OrdersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
+    public function index(){
+        if (request()->ajax()) {
+            $orders = Orders::all();
+            return Datatables::of($orders)
+                ->editColumn('created_at', function ($data) {
+                    return $data->created_at->toDayDateTimeString();
+                })->editColumn('updated_at', function ($data) {
+                    return $data->updated_at->toDayDateTimeString();
+                })->editColumn('PaymentsId', function ($data) {
+                    return $data->PaymentsId;
+                })->make(true);
+        }
+        return view('pages/orders');
     }
 
     /**
