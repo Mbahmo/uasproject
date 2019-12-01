@@ -146,11 +146,13 @@ function save_products(table){
              name : $('#name').val(),
              price : $('#price').val(),
              description : $('#description').val(),
+             image : $('#image').attr('src'),
         },
         success:function(data){
             $('.errorName').addClass('hidden');
             $('.errorPrice').addClass('hidden');
             $('.errorDescription').addClass('hidden');
+            $('.errorImage').addClass('hidden');
             if (data.errors) {
                 if (data.errors.name) {
                     $('.errorName').removeClass('hidden');
@@ -163,6 +165,10 @@ function save_products(table){
                 if (data.errors.description) {
                     $('.errorDescription').removeClass('hidden');
                     $('.errorDescription').text(data.errors.description);
+                }
+                if (data.errors.image) {
+                    $('.errorImage').removeClass('hidden');
+                    $('.errorImage').text(data.errors.image);
                 }
             }
             if (data.success == true) {
