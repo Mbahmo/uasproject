@@ -158,7 +158,7 @@ function save_products(table){
                 }
                 if (data.errors.price) {
                     $('.errorPrice').removeClass('hidden');
-                    $('.errorPrice').text(data.errors.description);
+                    $('.errorPrice').text(data.errors.price);
                 }
                 if (data.errors.description) {
                     $('.errorDescription').removeClass('hidden');
@@ -218,8 +218,8 @@ function update_products(url, frm, table){
                             $('.edit_errorName').text(data.errors.edit_name);
                         }
                         if (data.errors.edit_price) {
-                            $('.edit_errorDescription').removeClass('hidden');
-                            $('.edit_errorDescription').text(data.errors.price);
+                            $('.edit_errorPrice').removeClass('hidden');
+                            $('.edit_errorPrice').text(data.errors.edit_price);
                         }
                         if (data.errors.edit_description) {
                             $('.edit_errorDescription').removeClass('hidden');

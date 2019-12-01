@@ -28,6 +28,9 @@ class ProductsController extends Controller
                 ->editColumn('updated_at', function ($data) {
                     return $data->updated_at->toDayDateTimeString();
                 })
+                ->editColumn('ProductsImage', function ($data) {
+                    return asset("images/$data->ProductsImage");
+                })
                 ->addColumn('action',function($products){
                     return
                     '
@@ -46,18 +49,22 @@ class ProductsController extends Controller
      */
     public function store(Request $request){
         $rules = [
-            'name' => 'required|min:2|max:32',
-            // 'price' => 'required|min:2|max:32',
-            'description' => 'required|min:5|max:100'
+            'name'        => 'required|min:2|max:32',
+            'description' => 'required|min:5|max:100',
+            'image'       => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
         $validator = Validator::make(Input::all(), $rules);
         if ($validator->fails()) {
             return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
         } else {
             $products = new Products();
-            $products->productsName        = $request->name;
-            $products->productsPrice       = $request->price;
-            $products->productsDescription = $request->description;
+            $image = $request->file('image');
+            $new_name = rand() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('images'), $new_name);
+            $products->ProductsName        = $request->name;
+            $products->ProductsPrice       = $request->price;
+            $products->ProductsImage       = $new_name;
+            $products->ProductsDescription = $request->description;
             $products->save();
             return response()->json(array("success"=>true));
         }
@@ -84,8 +91,8 @@ class ProductsController extends Controller
     public function update(Request $request, $id)
     {
         $rules= [
-            'edit_name'    => 'required|min:2|max:32',
-            // 'edit_price' => 'required|min:5|max:100',
+            'edit_name'        => 'required|min:2|max:32',
+            'edit_price'       => 'required|^-?\\d*(\\.\\d+)?$',
             'edit_description' => 'required|min:5|max:100'
         ];
         $message = [

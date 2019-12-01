@@ -10,5 +10,6 @@ $factory->define(Products::class, function (Faker $faker) {
         'ProductsName'        => $faker->word,
         'ProductsPrice'       => $faker->randomNumber(2).'000',
         'ProductsDescription' => $faker->text($maxNbChars = 200),
+        'ProductsImage'       => 'dummy.png',
     ];
 });

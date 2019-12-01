@@ -7,7 +7,7 @@
                 <h4 class="modal-title">Add Form</h4>
             </div>
             <div class="modal-body">
-            <form role="form" id="frmDataAdd">
+            <form role="form" id="frmDataAdd" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="name" class="control-label">
                     Name<span class="required">*</span>
@@ -29,6 +29,13 @@
                     <textarea class="form-control" id="description" name="description"></textarea>
                     <p class="errorDescription text-danger hidden"></p>
                 </div>
+                <div class="form-group">
+                    <label for="image" class="control-label">
+                    Image<span class="required">*</span>
+                    </label>
+                    <input type="file" class="form-control" id="image" name="image">
+                    <p class="errorImage text-danger hidden"></p>
+                </div>
             </form>
                 <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -49,7 +56,7 @@
                 <h4 class="modal-title">Edit Form</h4>
             </div>
             <div class="modal-body">
-            <form role="form" id="frmDataEdit">
+            <form role="form" id="frmDataEdit" enctype="multipart/form-data">
                 <div class="form-group" style="display:none;">
                     <label for="edit_ID" class="control-label">
                     ID
