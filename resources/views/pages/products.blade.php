@@ -59,8 +59,10 @@
     });
 
     //Save New Data
-    $('#btnSave').click(function(e){
-       save_products(table);
+    $('form#frmDataAdd').submit(function(e){
+        // console.log('bruh')
+        e.preventDefault();
+        save_products(this);
     });
 
     // Calling Edit Modal Data

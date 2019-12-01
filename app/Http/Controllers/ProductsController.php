@@ -61,10 +61,10 @@ class ProductsController extends Controller
             $image = $request->file('image');
             $new_name = rand() . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('images'), $new_name);
-            $products->ProductsName        = $request->name;
-            $products->ProductsPrice       = $request->price;
-            $products->ProductsImage       = $new_name;
-            $products->ProductsDescription = $request->description;
+            $products->ProductName        = $request->name;
+            $products->ProductPrice       = $request->price;
+            $products->ProductImage       = $new_name;
+            $products->ProductDescription = $request->description;
             $products->save();
             return response()->json(array("success"=>true));
         }
