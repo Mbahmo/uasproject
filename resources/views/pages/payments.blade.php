@@ -56,7 +56,7 @@
         edit_payments(url);
     });
 
-    // Updating Data Payments
+    // Updating Data
     $('#btnUpdate').on('click',function(e){
         e.preventDefault();
         var url = "/payments/"+$('#edit_ID').val();

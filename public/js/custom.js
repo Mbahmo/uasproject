@@ -2,15 +2,19 @@
 function add_modal(){
     $('#mdlAddData').modal();
 }
-
-// CRUD Payments
 function save_payments(table){
-    var frm = new FormData(table);
+    var frm = $('#frmDataAdd');
     $.ajax({
-        url : '/products/store',
+        url : '/payments',
         type : 'POST',
-        data : frm,
+        dataType: 'json',
+        data : {
+            'csrf-token': '{{csrf_token()}}',
+             name : $('#name').val(),
+             description : $('#description').val(),
+        },
         success:function(data){
+            console.log(data);
             $('.errorName').addClass('hidden');
             $('.errorDescription').addClass('hidden');
             if (data.errors) {
@@ -130,8 +134,8 @@ function delete_payments(url, table) {
 
 
 // CRUD Products
-function save_products(table){
-    var frm = new FormData(table);
+function save_products(form, datatable){
+    var frm = new FormData(form);
     $.ajax({
         url : '/products',
         type : 'POST',
@@ -164,9 +168,9 @@ function save_products(table){
                 }
             }
             if (data.success == true) {
+                $('#frmDataAdd').trigger("reset");
                 $('#mdlAddData').modal('hide');
-                frm.trigger('reset');
-                table.ajax.reload(null,false);
+                datatable.ajax.reload(null,false);
                 Swal.fire('success!','Successfully Added','success');
             }
         },
@@ -189,11 +193,11 @@ function edit_products(url) {
                         $('.edit_errorPrice').addClass('hidden');
                         $('.edit_errorDescription').addClass('hidden');
                         $('#mdlEditData').modal('show');
-                        console.log(data.ProductsId);
                     }
                 });
 }
-function update_products(url, frm, table){
+function update_products(url, form, datatable){
+    var frm = new FormData(form);
     Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
@@ -208,8 +212,12 @@ function update_products(url, frm, table){
                 type :'PUT',
                 url : url,
                 dataType : 'json',
-                data : frm.serialize(),
+                data : frm,
+                contentType: false,
+                cache: false,
+                processData: false,
                 success:function(data){
+                    console.log(data.test);
                     if (data.errors) {
                         if (data.errors.edit_name) {
                             $('.edit_errorName').removeClass('hidden');
@@ -223,14 +231,19 @@ function update_products(url, frm, table){
                             $('.edit_errorDescription').removeClass('hidden');
                             $('.edit_errorDescription').text(data.errors.edit_description);
                         }
+                        if (data.errors.image) {
+                            $('.edit_errorImage').removeClass('hidden');
+                            $('.edit_errorImage').text(data.errors.edit_image);
+                        }
                     }
                     if (data.success == true) {
                         $('.edit_errorName').addClass('hidden');
+                        $('.edit_errorImage').addClass('hidden');
                         $('.edit_errorDescription').addClass('hidden');
-                        frm.trigger('reset');
+                        $('#frmDataEdit').trigger("reset");
                         $('#mdlEditData').modal('hide');
                         swal.fire('Success!','Data Updated Successfully','success');
-                        table.ajax.reload(null,false);
+                        datatable.ajax.reload(null,false);
                     }
                 },
                 error: function (jqXHR, textStatus, errorThrown){
@@ -263,6 +276,10 @@ function delete_products(url, table) {
                     if (data == 'Success') {
                         swal.fire("Deleted!", "Products has been deleted", "success");
                         table.ajax.reload(null,false);
+                        console.log(data);
+                    }
+                    else{
+                        console.log(data);
                     }
                 }
             });

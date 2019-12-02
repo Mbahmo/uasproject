@@ -61,10 +61,10 @@ class ProductsController extends Controller
             $image = $request->file('image');
             $new_name = rand() . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('images'), $new_name);
-            $products->ProductName        = $request->name;
-            $products->ProductPrice       = $request->price;
-            $products->ProductImage       = $new_name;
-            $products->ProductDescription = $request->description;
+            $products->ProductsName        = $request->name;
+            $products->ProductsPrice       = $request->price;
+            $products->ProductsImage       = $new_name;
+            $products->ProductsDescription = $request->description;
             $products->save();
             return response()->json(array("success"=>true));
         }
@@ -93,7 +93,8 @@ class ProductsController extends Controller
         $rules= [
             'edit_name'        => 'required|min:2|max:32',
             'edit_price'       => 'required|^-?\\d*(\\.\\d+)?$',
-            'edit_description' => 'required|min:5|max:100'
+            'edit_description' => 'required|min:5|max:100',
+            'edit_image'       => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ];
         $message = [
             'edit_name.required'              => 'The Name field is required.',
@@ -108,8 +109,16 @@ class ProductsController extends Controller
             return response()->json(array('errors' => $Validator->getMessageBag()->toArray()));
         } else {
             $products = Products::find($id);
+
+            $imagelama = (public_path('images').'/'.$products->ProductsImage);
+            unlink($imagelama);
+            $image = $request->file('edit_image');
+            $new_name = rand() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('images'), $new_name);
+
             $products->ProductsName        = $request->edit_name;
             $products->ProductsPrice       = $request->edit_price;
+            $products->ProductsImage       = $new_name;
             $products->ProductsDescription = $request->edit_description;
             $products->save();
             return response()->json(array("success"=>true));
@@ -123,8 +132,11 @@ class ProductsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id){
-        if (Products::destroy($id)) {
-            $data = 'Success';
+        if ($products = Products::find($id)) {
+            $imagelama = (public_path('images').'/'.$products->ProductsImage);
+            unlink($imagelama);
+            Products::destroy($id);
+            $data = "Success";
         } else {
             $data = 'Failed';
         }

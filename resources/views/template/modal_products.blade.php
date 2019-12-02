@@ -58,6 +58,7 @@
             </div>
             <div class="modal-body">
             <form role="form" id="frmDataEdit" enctype="multipart/form-data">
+                @csrf
                 <div class="form-group" style="display:none;">
                     <label for="edit_ID" class="control-label">
                     ID
@@ -85,11 +86,18 @@
                     <textarea class="form-control" id="edit_description" name="edit_description"></textarea>
                     <p class="edit_errorDescription text-danger hidden"></p>
                 </div>
-            </form>
+                <div class="form-group">
+                    <label for="edit_image" class="control-label">
+                    Image<span class="required">*</span>
+                    </label>
+                    <input type="file" class="form-control" id="edit_image" name="edit_image">
+                    <p class="edit_errorImage text-danger hidden"></p>
+                </div>
                 <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="btnUpdate"><i class="glyphicon glyphicon-save"></i>&nbsp;Save</button>
+                <button class="btn btn-primary" id="btnUpdate"><i class="glyphicon glyphicon-save"></i>&nbsp;Save</button>
                 </div>
+            </form>
             </div>
         </div>
     </div>

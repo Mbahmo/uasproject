@@ -60,9 +60,8 @@
 
     //Save New Data
     $('form#frmDataAdd').submit(function(e){
-        // console.log('bruh')
         e.preventDefault();
-        save_products(this);
+        save_products(this, table);
     });
 
     // Calling Edit Modal Data
@@ -72,12 +71,11 @@
         edit_products(url);
     });
 
-    // Updating Data Payments
-    $('#btnUpdate').on('click',function(e){
+    // Updating Data
+    $('form#frmDataEdit').submit(function(e){
         e.preventDefault();
         var url = "/products/"+$('#edit_ID').val();
-        var frm = $('#frmDataEdit');
-        update_products(url, frm, table);
+        update_products(url, this, table);
     });
 
     //Deleting Data

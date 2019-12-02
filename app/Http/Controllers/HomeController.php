@@ -39,7 +39,6 @@ class HomeController extends Controller
             $request->gambar->move(public_path('images'), $input['gambar']);
             $user = User::find($input['id']);
             $imagelama = (public_path('images').'/'.$user->image);
-            // dd($imagelama);
             unlink($imagelama);
             $user->image  = $input['gambar'];
             $user->save();
