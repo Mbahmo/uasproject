@@ -5,16 +5,11 @@ function add_modal(){
 
 // CRUD Payments
 function save_payments(table){
-    var frm = $('#frmDataAdd');
+    var frm = new FormData(table);
     $.ajax({
-        url : '/products',
+        url : '/products/store',
         type : 'POST',
-        dataType: 'json',
-        data : {
-            'csrf-token': '{{csrf_token()}}',
-             name : $('#name').val(),
-             description : $('#description').val(),
-        },
+        data : frm,
         success:function(data){
             $('.errorName').addClass('hidden');
             $('.errorDescription').addClass('hidden');
@@ -136,18 +131,15 @@ function delete_payments(url, table) {
 
 // CRUD Products
 function save_products(table){
-    var frm = $('#frmDataAdd');
+    var frm = new FormData(table);
     $.ajax({
         url : '/products',
         type : 'POST',
         dataType: 'json',
-        data : {
-            'csrf-token': '{{csrf_token()}}',
-             name : $('#name').val(),
-             price : $('#price').val(),
-             description : $('#description').val(),
-             image : $('#image').attr('src'),
-        },
+        data : frm,
+        contentType: false,
+        cache: false,
+        processData: false,
         success:function(data){
             $('.errorName').addClass('hidden');
             $('.errorPrice').addClass('hidden');

@@ -8,6 +8,7 @@
             </div>
             <div class="modal-body">
             <form role="form" id="frmDataAdd" enctype="multipart/form-data">
+                @csrf
                 <div class="form-group">
                     <label for="name" class="control-label">
                     Name<span class="required">*</span>
@@ -36,11 +37,11 @@
                     <input type="file" class="form-control" id="image" name="image">
                     <p class="errorImage text-danger hidden"></p>
                 </div>
-            </form>
                 <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="btnSave"><i class="glyphicon glyphicon-save"></i>&nbsp;Save</button>
+                <button class="btn btn-primary" id="btnSave"><i class="glyphicon glyphicon-save"></i>&nbsp;Save</button>
                 </div>
+            </form>
             </div>
         </div>
     </div>
