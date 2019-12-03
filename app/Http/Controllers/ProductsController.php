@@ -118,7 +118,7 @@ class ProductsController extends Controller
                 $image->move(public_path('images'), $new_name);
                 $products->ProductsImage       = $new_name;
             }
-            
+
             $products->ProductsName        = $request->edit_name;
             $products->ProductsPrice       = $request->edit_price;
             $products->ProductsDescription = $request->edit_description;
@@ -138,7 +138,9 @@ class ProductsController extends Controller
     public function destroy($id){
         if ($products = Products::find($id)) {
             $imagelama = (public_path('images').'/'.$products->ProductsImage);
-            unlink($imagelama);
+            if (file_exists($imagelama)) {
+                unlink($imagelama);
+            }
             Products::destroy($id);
             $data = "Success";
         } else {
