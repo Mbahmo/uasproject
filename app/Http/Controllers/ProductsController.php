@@ -92,7 +92,6 @@ class ProductsController extends Controller
     {
         $rules= [
             'edit_name'        => 'required|min:2|max:32',
-            'edit_price'       => 'required|^-?\\d*(\\.\\d+)?$',
             'edit_description' => 'required|min:5|max:100',
             'edit_image'       => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ];
@@ -109,7 +108,6 @@ class ProductsController extends Controller
             return response()->json(array('errors' => $Validator->getMessageBag()->toArray()));
         } else {
             $products = Products::find($id);
-
             $imagelama = (public_path('images').'/'.$products->ProductsImage);
             unlink($imagelama);
             $image = $request->file('edit_image');

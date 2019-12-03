@@ -56,8 +56,8 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">Edit Form</h4>
             </div>
-            <div class="modal-body">
             <form role="form" id="frmDataEdit" enctype="multipart/form-data">
+            <div class="modal-body">
                 @csrf
                 <div class="form-group" style="display:none;">
                     <label for="edit_ID" class="control-label">
@@ -97,8 +97,8 @@
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 <button class="btn btn-primary" id="btnUpdate"><i class="glyphicon glyphicon-save"></i>&nbsp;Save</button>
                 </div>
-            </form>
             </div>
+        </form>
         </div>
     </div>
 </div>

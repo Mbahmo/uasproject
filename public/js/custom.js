@@ -217,7 +217,6 @@ function update_products(url, form, datatable){
                 cache: false,
                 processData: false,
                 success:function(data){
-                    console.log(data.test);
                     if (data.errors) {
                         if (data.errors.edit_name) {
                             $('.edit_errorName').removeClass('hidden');

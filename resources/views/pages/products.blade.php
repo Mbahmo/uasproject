@@ -59,7 +59,7 @@
     });
 
     //Save New Data
-    $('form#frmDataAdd').submit(function(e){
+    $('#frmDataAdd').submit(function(e){
         e.preventDefault();
         save_products(this, table);
     });
@@ -72,7 +72,7 @@
     });
 
     // Updating Data
-    $('form#frmDataEdit').submit(function(e){
+    $('#frmDataEdit').submit(function(e){
         e.preventDefault();
         var url = "/products/"+$('#edit_ID').val();
         update_products(url, this, table);
