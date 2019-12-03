@@ -94,7 +94,7 @@ class ProductsController extends Controller
         $rules= [
             'edit_name'        => 'required|min:2|max:32',
             'edit_description' => 'required|min:5|max:100',
-            'edit_image'       => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            'edit_image'       => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ];
         $message = [
             'edit_name.required'              => 'The Name field is required.',
@@ -113,17 +113,18 @@ class ProductsController extends Controller
             if (file_exists($imagelama)) {
                 unlink($imagelama);
             }
-            $image = $request->file('edit_image');
-            $new_name = rand() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('images'), $new_name);
-
+            if($image = $request->file('edit_image')){
+                $new_name = rand() . '.' . $image->getClientOriginalExtension();
+                $image->move(public_path('images'), $new_name);
+                $products->ProductsImage       = $new_name;
+            }
+            
             $products->ProductsName        = $request->edit_name;
             $products->ProductsPrice       = $request->edit_price;
-            $products->ProductsImage       = $new_name;
             $products->ProductsDescription = $request->edit_description;
             $products->save();
-            
-            
+
+
             return response()->json(array("success"=>true));
         }
     }
