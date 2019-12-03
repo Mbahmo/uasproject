@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\ProductsExport;
 use App\Products;
+use Exception;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
@@ -109,7 +110,9 @@ class ProductsController extends Controller
         } else {
             $products = Products::find($id);
             $imagelama = (public_path('images').'/'.$products->ProductsImage);
-            unlink($imagelama);
+            if (file_exists($imagelama)) {
+                unlink($imagelama);
+            }
             $image = $request->file('edit_image');
             $new_name = rand() . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('images'), $new_name);
@@ -119,6 +122,8 @@ class ProductsController extends Controller
             $products->ProductsImage       = $new_name;
             $products->ProductsDescription = $request->edit_description;
             $products->save();
+            
+            
             return response()->json(array("success"=>true));
         }
     }
