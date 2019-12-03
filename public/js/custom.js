@@ -209,7 +209,7 @@ function update_products(url, form, datatable){
     }).then((result) => {
         if (result.value) {
             $.ajax({
-                type :'PUT',
+                type :'POST',
                 url : url,
                 dataType : 'json',
                 data : frm,

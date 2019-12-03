@@ -58,6 +58,7 @@
             </div>
             <form role="form" id="frmDataEdit" enctype="multipart/form-data">
             <div class="modal-body">
+                @method('PUT')
                 @csrf
                 <div class="form-group" style="display:none;">
                     <label for="edit_ID" class="control-label">
