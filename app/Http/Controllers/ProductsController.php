@@ -33,11 +33,11 @@ class ProductsController extends Controller
                     return asset("images/$data->ProductsImage");
                 })
                 ->addColumn('action',function($products){
-                    return
-                    '
-                    <button type="button" class="btn btn-info btn-sm btnEdit" data-edit="/products/'.$products->ProductsId.'/edit">Edit</button>
-                    <button type="submit" class="btn btn-warning btn-sm btnDelete" data-remove="/products/'.$products->ProductsId.'">Delete</button>
-                    ';
+
+                    $urledit   = url("/products/$products->ProductsId/edit");
+                    $urldelete = url("/products/$products->ProductsId/");
+                    return '<button type="button" class="btn btn-info btn-sm btnEdit" data-edit="'.$urledit.'">Edit</button>
+                    <button type="submit" class="btn btn-warning btn-sm btnDelete" data-remove="'.$urldelete.'">Delete</button>';
                 })->make(true);
         }
         return view('pages/products');
