@@ -74,7 +74,9 @@
     // Updating Data
     $('#frmDataEdit').submit(function(e){
         e.preventDefault();
-        var url = "/products/"+$('#edit_ID').val();
+        var id = +$('#edit_ID').val();
+        var url = '{{ route("products.update", ":id") }}';
+        url = url.replace(':id', id);
         update_products(url, this, table);
     });
 
